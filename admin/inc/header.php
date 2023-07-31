@@ -1,28 +1,36 @@
-<?php  
+<?php
+
 use Admin\Libs\Rooms;
+
+ob_start();
+
+use Admin\Libs\Session;
+
 require_once("autoloader.php");
 
-session_start();  
-if(!isset($_SESSION["user"]))
-{
- header("location:index.php");
+$session = new Session();
+if ($session->isSignedIn()) {
+    header("location:index.php");
 }
-?> 
+
+?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-      <meta charset="utf-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SUNRISE HOTEL</title>
-	<!-- Bootstrap Styles-->
+    <!-- Bootstrap Styles-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
-     <!-- FontAwesome Styles-->
+    <!-- FontAwesome Styles-->
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
-        <!-- Custom Styles-->
+    <!-- Custom Styles-->
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
-     <!-- Google Fonts-->
-   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <!-- Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
+
 <body>
     <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
@@ -37,7 +45,7 @@ if(!isset($_SESSION["user"]))
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
-			
+
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
@@ -51,7 +59,7 @@ if(!isset($_SESSION["user"]))
                         <li><a href="logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
-					
+
                     <!-- /.dropdown-user -->
                 </li>
                 <!-- /.dropdown -->
@@ -63,21 +71,18 @@ if(!isset($_SESSION["user"]))
                 <ul class="nav" id="main-menu">
 
                     <li>
-                        <a  href="settings.php"><i class="fa fa-dashboard"></i>Rooms Status</a>
-                    </li>
-					<li>
-                        <a  class="active-menu" href="room.php"><i class="fa fa-plus-circle"></i>Add Room</a>
+                        <a href="settings.php"><i class="fa fa-dashboard"></i>Rooms Status</a>
                     </li>
                     <li>
-                        <a  href="roomdel.php"><i class="fa fa-desktop"></i> Delete Room</a>
+                        <a class="active-menu" href="room.php"><i class="fa fa-plus-circle"></i>Add Room</a>
                     </li>
-					
+                    <li>
+                        <a href="roomdel.php"><i class="fa fa-desktop"></i> Delete Room</a>
+                    </li>
 
-                    
+
+
             </div>
 
         </nav>
         <!-- /. NAV SIDE  -->
-       
-        
-       

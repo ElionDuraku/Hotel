@@ -9,11 +9,14 @@ use PDO;
 class Users extends Database
 {
     protected static $db_table = "login";
-    protected static $db_fields = array("id", "usname", "pass");
+    protected static $db_fields = array("usname", "pass", "role");
 
     protected $id;
     protected $usname;
     protected $pass;
+    protected $role;
+
+
 
     public function getId()
     {
@@ -30,6 +33,11 @@ class Users extends Database
         return $this->pass;
     }
 
+    public function getRole()
+    {
+        return $this->role;
+    }
+
     // Setter methods
     public function setId($id)
     {
@@ -41,10 +49,28 @@ class Users extends Database
         $this->usname = $usname;
     }
 
-    public function setPass($pass)
+    public function setPass($password)
     {
-        $this->pass = $pass;
+
+        $this->pass = $password;
+    }
+
+
+    public function setRole($role)
+    {
+        $this->role = $role;
+    }
+
+
+    public function verifyUser($usname, $password)
+    {
+        $sql = "SELECT * FROM login";
+        $sql .= " WHERE usname=:usname AND pass=:pass";
+        $result = $this->prepare($sql);
+        $result->bindParam(':usname', $usname);
+        $result->bindParam(':pass', $password);
+        $result->execute();
+        $result->setFetchMode(PDO::FETCH_CLASS, __NAMESPACE__ . "\\{$this->getClassName()}");
+        return $result->fetch();
     }
 }
-
-    
