@@ -1,14 +1,10 @@
 <?php
 
 use Admin\Libs\Users;
-use Admin\Libs\Session;
+
 
 include "inc/header.php";
 
-$session = new Session();
-if ($session->isSignedIn()) {
-    header("Location: admin/index.php");
-}
 ?>
 
 <div id="page-wrapper">
@@ -34,6 +30,7 @@ if ($session->isSignedIn()) {
                                         <th>User ID</th>
                                         <th>User name</th>
                                         <th>Password</th>
+                                        <th>Role</th>
                                         <th>Update</th>
                                         <th>Remove</th>
                                     </tr>
@@ -41,21 +38,21 @@ if ($session->isSignedIn()) {
                                 <tbody>
                                     <?php
                                     $user = new Users();
+
+
+
                                     foreach ($user->find_all() as $u) {
                                         $id = $u->getId();
                                         $us = $u->getUsname();
-                                        $ps = $u->getPass();
                                         $role = $u->getRole();
-
                                         $cssClass = ($id % 2 == 0) ? 'gradeC' : 'gradeU';
 
                                         echo "<tr class='$cssClass'>";
                                         echo "<td>" . $u->getId() . "</td>";
                                         echo "<td>" . $u->getUsname() . "</td>";
                                         echo "<td>" . $u->getPass() . "</td>";
-                                        echo "<td>";
-                                        echo "<td><a href='usersettingedit.php?userid=" . $u->getId() . "'>Edit</td>";
-
+                                        echo "<td>" . $u->getRole() . "</td>";
+                                        echo "<td><a href='#' class='edit-btn' data-toggle='modal' data-target='#myModal' data-userid='$id' data-username='$us' data-pass='" . htmlentities($u->getPass()) . "' data-role='$role'>Edit</a></td>";
                                         echo "<td>";
                                         echo "<button class='btn btn-danger delete-btn' data-toggle='modal' data-target='#myModal2' data-userid='$id' data-username='$us'>Delete</button>";
 
@@ -223,25 +220,6 @@ if ($session->isSignedIn()) {
                 </div>
             </div>
 
-            <script>
-                $(document).on('click', '.edit-btn', function() {
-                    var userId = $(this).data('userid');
-                    var usname = $(this).data('username');
-                    var pass = $(this).data('pass');
-                    var role = $(this).data('role');
-                    $("#editForm #editUserId").val(userId);
-                    $("#editForm #editUsname").val(usname);
-                    $("#editForm #editPass").val(pass);
-                    $("#editForm #editRole").val(role);
-                });
-            </script>
-
-
-
-
-
-
-
         </div>
     </div>
 </div>
@@ -278,6 +256,8 @@ if (isset($_POST['update'])) {
 <!-- /. WRAPPER  -->
 <!-- JS Scripts-->
 <!-- jQuery Js -->
+<!-- Include jQuery library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="assets/js/jquery-1.10.2.js"></script>
 <!-- Bootstrap Js -->
 <script src="assets/js/bootstrap.min.js"></script>
@@ -287,22 +267,20 @@ if (isset($_POST['update'])) {
 <script src="assets/js/custom-scripts.js"></script>
 
 <!-- Remove this duplicate script -->
+
+
 <script>
-    $('#myModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget);
-        var userId = button.data('userid');
-        var usname = button.data('username');
-        var pass = button.data('pass');
-        var role = button.data('role');
-        var modal = $(this);
-        modal.find('#editUsname').val(usname);
-        modal.find('#editPass').val(pass);
-        modal.find('#editRole').val(role);
+    $(document).on('click', '.edit-btn', function() {
+        var userId = $(this).data('userid');
+        var usname = $(this).data('username');
+        var pass = $(this).data('pass');
+        var role = $(this).data('role');
+        $("#editForm #editUserId").val(userId);
+        $("#editForm #editUsname").val(usname);
+        $("#editForm #editPass").val(pass);
+        $("#editForm #editRole").val(role);
     });
-</script>
 
-
-<script>
     $('#myModal2').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget);
         var userId = button.data('userid');

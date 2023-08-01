@@ -9,13 +9,12 @@ use PDO;
 class Users extends Database
 {
     protected static $db_table = "login";
-    protected static $db_fields = array("usname", "pass", "role");
+    protected static $db_fields = array("id", "usname", "pass", "role");
 
     protected $id;
     protected $usname;
     protected $pass;
     protected $role;
-
 
 
     public function getId()
@@ -28,9 +27,19 @@ class Users extends Database
         return $this->usname;
     }
 
+    public function setUsname($usname)
+    {
+        $this->usname = $usname;
+    }
+
     public function getPass()
     {
         return $this->pass;
+    }
+
+    public function setPass($pass)
+    {
+        $this->pass = $pass;
     }
 
     public function getRole()
@@ -38,29 +47,10 @@ class Users extends Database
         return $this->role;
     }
 
-    // Setter methods
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    public function setUsname($usname)
-    {
-        $this->usname = $usname;
-    }
-
-    public function setPass($password)
-    {
-
-        $this->pass = $password;
-    }
-
-
     public function setRole($role)
     {
         $this->role = $role;
     }
-
 
     public function verifyUser($usname, $password)
     {
