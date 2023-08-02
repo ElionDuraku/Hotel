@@ -1,8 +1,6 @@
 <?php
 
 use Admin\Libs\Users;
-
-
 include "inc/header.php";
 
 ?>

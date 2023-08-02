@@ -4,9 +4,7 @@ if(!isset($_SESSION["user"]))
 {
  header("location:index.php");
 }
-?>
-
-
+?> 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -91,7 +89,6 @@ if(!isset($_SESSION["user"]))
 
         </nav>
         <!-- /. NAV SIDE  -->
-
         <div id="page-wrapper">
             <div id="page-inner">
 
@@ -105,20 +102,24 @@ if(!isset($_SESSION["user"]))
                 </div>
                 <!-- /. ROW  -->
 				<?php
-                    $user = new RoomBook(); // Assuming you have a RoomBook class for handling database interactions
-
-                    $c = 0;
-                    foreach ($user->find_all() as $row) {
-                        $new = $row->getStat();
-                        $cin = $row->getCin();
-                        $id = $row->getId();
-
-                        if ($new == "Not Conform") {
-                            $c = $c + 1;
-                        }
-                    }
-                ?>
-
+						include ('db.php');
+						$sql = "select * from roombook";
+						$re = mysqli_query($con,$sql);
+						$c =0;
+						while($row=mysqli_fetch_array($re) )
+						{
+								$new = $row['stat'];
+								$cin = $row['cin'];
+								$id = $row['id'];
+								if($new=="Not Conform")
+								{
+									$c = $c + 1;
+									
+								
+								}
+						
+						}						
+				?>
 
                 
 
@@ -167,29 +168,32 @@ if(!isset($_SESSION["user"]))
                                     <tbody>
                                         
 									<?php
-                                        $user = new RoomBook(); // Assuming you have a RoomBook class for handling database interactions
-
-                                        foreach ($user->find_all() as $trow) {
-                                            $co = $trow->getStat();
-                                            
-                                            if ($co == "Not Conform") {
-                                                echo "<tr>";
-                                                echo "<td>" . $trow->getId() . "</td>";
-                                                echo "<td>" . $trow->getFName() . " " . $trow->getLName() . "</td>";
-                                                echo "<td>" . $trow->getEmail() . "</td>";
-                                                echo "<td>" . $trow->getCountry() . "</td>";
-                                                echo "<td>" . $trow->getTRoom() . "</td>";
-                                                echo "<td>" . $trow->getBed() . "</td>";
-                                                echo "<td>" . $trow->getMeal() . "</td>";
-                                                echo "<td>" . $trow->getCin() . "</td>";
-                                                echo "<td>" . $trow->getCout() . "</td>";
-                                                echo "<td>" . $trow->getStat() . "</td>";
-                                                echo "<td><a href='roombook.php?rid=" . $trow->getId() . "' class='btn btn-primary'>Action</a></td>";
-                                                echo "</tr>";
-                                            }
-                                        }
-                                    ?>
-
+									$tsql = "select * from roombook";
+									$tre = mysqli_query($con,$tsql);
+									while($trow=mysqli_fetch_array($tre) )
+									{	
+										$co =$trow['stat']; 
+										if($co=="Not Conform")
+										{
+											echo"<tr>
+												<th>".$trow['id']."</th>
+												<th>".$trow['FName']." ".$trow['LName']."</th>
+												<th>".$trow['Email']."</th>
+												<th>".$trow['Country']."</th>
+												<th>".$trow['TRoom']."</th>
+												<th>".$trow['Bed']."</th>
+												<th>".$trow['Meal']."</th>
+												<th>".$trow['cin']."</th>
+												<th>".$trow['cout']."</th>
+												<th>".$trow['stat']."</th>
+												
+												<th><a href='roombook.php?rid=".$trow['id']." ' class='btn btn-primary'>Action</a></th>
+												</tr>";
+										}	
+									
+									}
+									?>
+                                        
                                     </tbody>
                                 </table>
 								
@@ -201,17 +205,25 @@ if(!isset($_SESSION["user"]))
                                     </div>
                                 </div>
 								<?php
-                                $user = new RoomBook(); // Assuming you have a RoomBook class for handling database interactions
-
-                                $r = 0;
-                                foreach ($user->find_all() as $u) {
-                                    $br = $u->getStat();
-                                    if ($br == "Conform") {
-                                        $r = $r + 1;
-                                    }
-                                }
-                            ?>
-
+								
+								$rsql = "SELECT * FROM `roombook`";
+								$rre = mysqli_query($con,$rsql);
+								$r =0;
+								while($row=mysqli_fetch_array($rre) )
+								{		
+										$br = $row['stat'];
+										if($br=="Conform")
+										{
+											$r = $r + 1;
+											
+											
+											
+										}
+										
+								
+								}
+						
+								?>
                                 <div class="panel panel-info">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
@@ -226,29 +238,39 @@ if(!isset($_SESSION["user"]))
                                     <div id="collapseOne" class="panel-collapse collapse" style="height: 0px;">
                                         <div class="panel-body">
 										<?php
-										$user = new RoomBook(); // Assuming you have a RoomBook class for handling database interactions
-
-                                        foreach ($user->find_all() as $u) {
-                                            $br = $u->getStat();
-                                            if ($br == "Conform") {
-                                                $fid = $u->getId();
-                                    
-                                                echo "<div class='col-md-3 col-sm-12 col-xs-12'>
-                                                        <div class='panel panel-primary text-center no-boder bg-color-blue'>
-                                                            <div class='panel-body'>
-                                                                <i class='fa fa-users fa-5x'></i>
-                                                                <h3>" . $u->getFName() . "</h3>
-                                                            </div>
-                                                            <div class='panel-footer back-footer-blue'>
-                                                                <a href='show.php?sid=" . $fid . "'><button class='btn btn-primary btn' data-toggle='modal' data-target='#myModal'>
-                                                                    Show
-                                                                </button></a>
-                                                                " . $u->getTRoom() . "
-                                                            </div>
-                                                        </div>
-                                                    </div>";
-                                            }
-                                        }
+										$msql = "SELECT * FROM `roombook`";
+										$mre = mysqli_query($con,$msql);
+										
+										while($mrow=mysqli_fetch_array($mre) )
+										{		
+											$br = $mrow['stat'];
+											if($br=="Conform")
+											{
+												$fid = $mrow['id'];
+												 
+											echo"<div class='col-md-3 col-sm-12 col-xs-12'>
+													<div class='panel panel-primary text-center no-boder bg-color-blue'>
+														<div class='panel-body'>
+															<i class='fa fa-users fa-5x'></i>
+															<h3>".$mrow['FName']."</h3>
+														</div>
+														<div class='panel-footer back-footer-blue'>
+														<a href=show.php?sid=".$fid ."><button  class='btn btn-primary btn' data-toggle='modal' data-target='#myModal'>
+													Show
+													</button></a>
+															".$mrow['TRoom']."
+														</div>
+													</div>	
+											</div>";
+															
+												
+					
+				
+												
+											}
+											
+									
+										}
 										?>
                                            
 										</div>
@@ -257,13 +279,17 @@ if(!isset($_SESSION["user"]))
 									
                                 </div>
                                 <?php
-                                $user = new Contact(); // Assuming you have a Contact class for handling database interactions
-
-                                $f = 0;
-                                foreach ($user->find_all() as $u) {
-                                    $f = $f + 1;
-                                }
-                            ?>
+								
+								$fsql = "SELECT * FROM `contact`";
+								$fre = mysqli_query($con,$fsql);
+								$f =0;
+								while($row=mysqli_fetch_array($fre) )
+								{
+										$f = $f + 1;
+								
+								}
+						
+								?>
                                 <div class="panel panel-danger">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
@@ -292,20 +318,23 @@ if(!isset($_SESSION["user"]))
                                     </thead>
                                     <tbody>
                                         
-                                    <?php
-                                        $user = new Contact(); // Assuming you have a Contact class for handling database interactions
-
-                                        foreach ($user->find_all() as $u) {
-                                            echo "<tr>";
-                                            echo "<th>" . $u->getId() . "</th>";
-                                            echo "<th>" . $u->getFullname() . "</th>";
-                                            echo "<th>" . $u->getEmail() . "</th>";
-                                            echo "<th>" . $u->getCdate() . "</th>";
-                                            echo "<th>" . $u->getApproval() . "</th>";
-                                            echo "</tr>";
-                                        }
-                                    ?>
-
+									<?php
+									$csql = "select * from contact";
+									$cre = mysqli_query($con,$csql);
+									while($crow=mysqli_fetch_array($cre) )
+									{	
+										
+											echo"<tr>
+												<th>".$crow['id']."</th>
+												<th>".$crow['fullname']."</th>
+												<th>".$crow['email']." </th>
+												<th>".$crow['cdate']." </th>
+												<th>".$crow['approval']."</th>
+												</tr>";
+										
+									
+									}
+									?>
                                         
                                     </tbody>
                                 </table>

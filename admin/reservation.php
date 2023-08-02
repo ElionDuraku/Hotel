@@ -1,4 +1,7 @@
 <?php
+
+use Admin\Libs\RoomBook;
+
 include('db.php')
 ?>
 <!DOCTYPE html>
@@ -201,46 +204,52 @@ include('db.php')
 							<input type="hidden" name="code" value="<?php echo $Random_code; ?>" />
 						<input type="submit" name="submit" class="btn btn-primary">
 						<?php
-							if(isset($_POST['submit']))
-							{
-							$code1=$_POST['code1'];
-							$code=$_POST['code']; 
-							if($code1!="$code")
-							{
-							$msg="Invalide code"; 
-							}
-							else
-							{
-							
-									// $con=mysqli_connect("localhost","root","","hotel");
-									$check="SELECT * FROM roombook WHERE email = '$_POST[email]'";
-									$rs = mysqli_query($con,$check);
-									$data = mysqli_fetch_array($rs, MYSQLI_NUM);
-									if($data[0] > 1) {
-										echo "<script type='text/javascript'> alert('User Already in Exists')</script>";
-										
-									}
+    if(isset($_POST['submit']))
+    {
+        // Process form submission
+        $user = new RoomBook(); // Assuming you have a RoomBook class for handling database interactions
 
-									else
-									{
-										$new ="Not Conform";
-										$newUser="INSERT INTO `roombook`(`Title`, `FName`, `LName`, `Email`, `National`, `Country`, `Phone`, `TRoom`, `Bed`, `NRoom`, `Meal`, `cin`, `cout`,`stat`,`nodays`) VALUES ('$_POST[title]','$_POST[fname]','$_POST[lname]','$_POST[email]','$_POST[nation]','$_POST[country]','$_POST[phone]','$_POST[troom]','$_POST[bed]','$_POST[nroom]','$_POST[meal]','$_POST[cin]','$_POST[cout]','$new',datediff('$_POST[cout]','$_POST[cin]'))";
-										if (mysqli_query($con,$newUser))
-										{
-											echo "<script type='text/javascript'> alert('Your Booking application has been sent')</script>";
-											
-										}
-										else
-										{
-											echo "<script type='text/javascript'> alert('Error adding user in database')</script>";
-											
-										}
-									}
+        $code1 = $_POST['code1'];
+        $code = $_POST['code']; 
 
-							$msg="Your code is correct";
-							}
-							}
-							?>
+        if($code1 != $code)
+        {
+            $msg = "Invalid code"; 
+        }
+        else
+        {
+            // Check if user already exists
+            $email = $_POST['email'];
+            $existingUser = $user->find_by_email($email); // Implement the find_by_email() method
+
+            if($existingUser) {
+                echo "<script type='text/javascript'> alert('User Already Exists')</script>";
+            }
+            else
+            {   
+                $new = "Not Conform";
+                $newUser = new RoomBook(); // Create a new RoomBook object
+
+                // Set values for the new user
+                $newUser->setTitle($_POST['title']);
+                $newUser->setFName($_POST['fname']);
+                $newUser->setLName($_POST['lname']);
+                // ... Set other properties accordingly ...
+
+                if ($newUser->save()) // Implement the save() method to insert into the database
+                {
+                    echo "<script type='text/javascript'> alert('Your Booking application has been sent')</script>";
+                }
+                else
+                {
+                    echo "<script type='text/javascript'> alert('Error adding user to the database')</script>";
+                }
+            }
+            $msg = "Your code is correct";
+        }
+    }
+?>
+
 						</form>
 							
                     </div>
