@@ -435,8 +435,8 @@ use Admin\Libs\Payment;
 		<h1>Invoice</h1>
 		<address>
 			<p>SUN RISE HOTEL,</p>
-			<p>New Kalmunani Road,<br>Battialoa,<br>Sri Lanka.</p>
-			<p>(+94) 65 222 44 55</p>
+			<p>Rruga Agim Ramadani,<br>Kosova,<br>Prishtina</p>
+			<p>044444444</p>
 		</address>
 		<span><img alt="" src="assets/img/sun.png"></span>
 	</header>
@@ -509,7 +509,7 @@ use Admin\Libs\Payment;
 	<aside>
 		<h1><span>Contact us</span></h1>
 		<div>
-			<p align="center">Email :- info@sunrise.com || Web :- www.sunrise.com || Phone :- +94 65 222 44 55 </p>
+			<p class="center">Email :- info@sunrise.com || Web :- www.sunrise.com || Phone :- +94 65 222 44 55 </p>
 		</div>
 	</aside>
 </body>

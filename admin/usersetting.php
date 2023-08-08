@@ -1,9 +1,17 @@
 <?php
 
+use Admin\Libs\AccessControl;
 use Admin\Libs\Users;
+
 include "inc/header.php";
 
+
+$allowedRoles = ['admin', 'manager'];
+
+AccessControl::checkAccess($allowedRoles);
+
 ?>
+
 
 <div id="page-wrapper">
     <div id="page-inner">
@@ -40,6 +48,7 @@ include "inc/header.php";
 
 
                                     foreach ($user->find_all() as $u) {
+
                                         $id = $u->getId();
                                         $us = $u->getUsname();
                                         $role = $u->getRole();

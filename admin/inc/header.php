@@ -1,7 +1,5 @@
 <?php
 
-use Admin\Libs\Rooms;
-
 ob_start();
 
 use Admin\Libs\Session;
@@ -9,10 +7,9 @@ use Admin\Libs\Session;
 require_once("autoloader.php");
 
 $session = new Session();
-if ($session->isSignedIn()) {
-    header("location:index.php");
+if (!$session->isSignedIn()) {
+    header("Location: ../login.php");
 }
-
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -51,8 +48,11 @@ if ($session->isSignedIn()) {
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="usersetting.php"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
+
+                        <?php if ($session->role === 'admin') {
+                        ?>
+                            <li><a href="usersetting.php"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                            </li> <?php } ?>
                         <li><a href="settings.php"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
@@ -70,6 +70,7 @@ if ($session->isSignedIn()) {
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
 
+
                     <li>
                         <a href="settings.php"><i class="fa fa-dashboard"></i>Rooms Status</a>
                     </li>
@@ -78,6 +79,9 @@ if ($session->isSignedIn()) {
                     </li>
                     <li>
                         <a href="roomdel.php"><i class="fa fa-desktop"></i> Delete Room</a>
+                    </li>
+                    <li>
+                        <a href="inventory.php"><i class="fa fa-home"></i> inventory</a>
                     </li>
 
 

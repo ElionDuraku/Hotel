@@ -11,6 +11,7 @@ class Session
 
     public function __construct()
     {
+        session_start();
         $this->checkLogin();
         $this->checkMessage();
     }
@@ -22,8 +23,8 @@ class Session
 
     public function checkLogin()
     {
-        if (isset($_SESSION['userId'])) {
-            $this->userId = $_SESSION['userId'];
+        if (isset($_SESSION['id'])) {
+            $this->userId = $_SESSION['id'];
             $this->role = $_SESSION['role'];
             $this->signedIn = true;
         } else {
@@ -37,7 +38,7 @@ class Session
     {
         if ($user) {
             $this->userId = $user->getId();
-            $_SESSION['userId'] = $user->getId();
+            $_SESSION['id'] = $user->getId();
             $this->role = $user->getRole();
             $_SESSION['role'] = $user->getRole();
             $this->signedIn = true;
@@ -46,7 +47,7 @@ class Session
 
     public function logout()
     {
-        unset($_SESSION['userId']);
+        unset($_SESSION['id']);
         unset($_SESSION['role']);
         unset($this->userId);
         unset($this->role);

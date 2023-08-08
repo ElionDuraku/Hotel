@@ -1,14 +1,10 @@
 <?php
 
-use Admin\Libs\Session;
+
 use Admin\Libs\Contact;
 
 include "inc/header.php";
 
-$session = new Session();
-if ($session->isSignedIn()) {
-    header("Location: admin/index.php");
-}
 ?>
 <div id="page-wrapper">
     <div id="page-inner">

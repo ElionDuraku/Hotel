@@ -40,6 +40,8 @@ abstract class Database
         return $this->connectDB()->prepare($sql);
     }
 
+  
+
     public function properties()
     {
         $properties = array();
@@ -74,6 +76,19 @@ abstract class Database
         $result->setFetchMode(PDO::FETCH_CLASS, __NAMESPACE__ . "\\{$this->getClassName()}");
         return $result->fetch();
     }
+
+    public function find_by_email($email)
+    {
+        $this->email = $email;
+        $sql = "SELECT * FROM " . static::$db_table;
+        $sql .= " WHERE email=:email";
+        $result = $this->prepare($sql);
+        $result->bindParam(':email', $this->email);
+        $result->execute();
+        $result->setFetchMode(PDO::FETCH_CLASS, __NAMESPACE__ . "\\{$this->getClassName()}");
+        return $result->fetch();
+    }
+
 
     public function create()
     {

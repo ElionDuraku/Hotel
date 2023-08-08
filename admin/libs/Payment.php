@@ -11,21 +11,21 @@ class Payment extends Database
     protected static $db_table = "payment";
     protected static $db_fields = array("title", "fname", "lname", "troom", "tbed", "nroom", "cin", "cout", "ttot", "fintot", "mepr", "meal", "btpt", "noofdays");
     // Add any specific methods related to payments here
-    public $id;
-    public $title;
-    public $fname;
-    public $lname;
-    public $troom;
-    public $tbed;
-    public $nroom;
-    public $cin;
-    public $cout;
-    public $ttot;
-    public $fintot;
-    public $mepr;
-    public $meal;
-    public $btot;
-    public $noofdays;
+    protected $id;
+    protected $title;
+    protected $fname;
+    protected $lname;
+    protected $troom;
+    protected $tbed;
+    protected $nroom;
+    protected $cin;
+    protected $cout;
+    protected $ttot;
+    protected $fintot;
+    protected $mepr;
+    protected $meal;
+    protected $btot;
+    protected $noofdays;
 
     // Getters
     public function getId()

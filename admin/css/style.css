@@ -53,7 +53,7 @@ p {
 }
 
 .clearfix {
-  *zoom: 1;
+  zoom: 1;
 }
 .clearfix:before, .clearfix:after {
   content: ' ';
@@ -115,7 +115,7 @@ p {
 }
 
 #login form input[type="submit"]:hover {
-  background-color: #d44179;
+  background-color: #b10044;
 }
 
 #login > p {
@@ -248,7 +248,7 @@ p {
 	100% {margin-left: -1000px;}
 }
 .bottom {
-	width:100%; margin:0 auto; text-align:center; padding:10px 0; height:100px; position:absolute;
+	width:100%; margin:20px auto; text-align:center; padding:10px 0; height:100px; position:absolute;
 }
 .bottom h3 {color:white; font-size:30px; font-weight:bold; margin-top:45px; padding-bottom:45px;}
 .blue { color:#09c;}
