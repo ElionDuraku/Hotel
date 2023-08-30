@@ -19,10 +19,9 @@ if (!isset($_GET["rid"])) {
 	$id = $_GET['rid'];
 	$roombook = new Roombook();
 
-	$roomData = $roombook->find_id($id); // Assuming you have a method in Roombook class to fetch data by ID
+	$roomData = $roombook->find_id($id);
 
 	if ($roomData) {
-		// Fetch the data from the object
 		$title = $roomData->getTitle();
 		$fname = $roomData->getFName();
 		$lname = $roomData->getLName();
@@ -40,11 +39,31 @@ if (!isset($_GET["rid"])) {
 		$sta = $roomData->getStat();
 		$days = $roomData->getNodays();
 	} else {
-		// Room data not found, handle the error here (e.g., redirect or display an error message)
 		header("location:index.php");
 		exit();
 	}
 }
+?>
+
+<!-- Function for delete roombook -->
+<?php
+$roombook = new Roombook();
+
+
+if (isset($_POST['delete'])) {
+	$room_id = $_GET['rid'];
+
+	$roombook = new Roombook();
+	$roombook->find_id($room_id);
+	$roombook->delete();
+
+	$session->message("User $username with ID $user_id deleted successfully");
+	header("Location: home.php");
+}
+
+
+
+
 ?>
 
 <div id="page-wrapper">
@@ -161,6 +180,7 @@ if (!isset($_GET["rid"])) {
 								</select>
 							</div>
 							<input type="submit" name="co" value="Confirm" class="btn btn-success">
+							<input type="submit" name="delete" value="Delete" class="btn btn-danger">
 
 						</form>
 					</div>

@@ -8,10 +8,14 @@ class Session
     public $userId;
     public $role;
     public $message;
+    private static $sessionStarted = false;
 
     public function __construct()
     {
-        session_start();
+        if (!self::$sessionStarted) {
+            session_start();
+            self::$sessionStarted = true;
+        }
         $this->checkLogin();
         $this->checkMessage();
     }

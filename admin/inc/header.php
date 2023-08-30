@@ -8,7 +8,7 @@ require_once("autoloader.php");
 
 $session = new Session();
 if (!$session->isSignedIn()) {
-    header("Location: ../login.php");
+    header("Location: ./index.php");
 }
 ?>
 <!DOCTYPE html>

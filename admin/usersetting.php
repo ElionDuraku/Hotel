@@ -76,19 +76,17 @@ AccessControl::checkAccess($allowedRoles);
 
                 <?php
                 $user = new Users();
-
-                // Check if the "id" parameter is set in the URL (for Edit or Delete)
                 // Check if the form for deleting the user is submitted
                 if (isset($_POST['confirm_delete_user'])) {
                     $user_id = $_POST['user_id'];
                     $username = $_POST['username'];
 
-                    // Assuming you have a function in your Users class to delete the user by ID
+
                     $user = new Users();
                     $user->find_id($user_id);
                     $user->delete();
 
-                    // Optionally, you can add a message or perform any other actions here
+
                     $session->message("User $username with ID $user_id deleted successfully");
                     header("Location: usersetting.php");
                 }

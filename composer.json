@@ -1,0 +1,13 @@
+{
+    "name": "metigovori/hotel",
+    "description": "\"test:",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Metigovori\\Hotel\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {}
+}

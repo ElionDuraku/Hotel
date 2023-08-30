@@ -78,7 +78,7 @@ include "inc/header.php";
                                                                 <th>More</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody>
+                                                        <tbody id="reservationsTable">
                                                             <?php
                                                             $roombook = new Roombook();
 
@@ -104,6 +104,8 @@ include "inc/header.php";
 
 
                                                             ?>
+                                                            <button class="btn btn-primary" onclick="refreshPage()">Refresh List</button>
+
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -244,6 +246,29 @@ include "inc/header.php";
 <script src="assets/js/morris/morris.js"></script>
 <!-- Custom Js -->
 <script src="assets/js/custom-scripts.js"></script>
+
+
+<script>
+    function updateReservations() {
+        console.log("Updating reservations...");
+        $.ajax({
+            url: 'update-reservation.php',
+            type: 'GET',
+            success: function(response) {
+                console.log("Response:", response);
+                $('#reservationsTable').html(response);
+            },
+            error: function(xhr, status, error) {
+                console.log("AJAX Error:", error);
+            }
+        });
+    }
+</script>
+<script>
+    function refreshPage() {
+        location.reload(); // Reload the current page
+    }
+</script>
 
 </body>
 

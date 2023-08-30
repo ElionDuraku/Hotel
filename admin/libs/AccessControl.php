@@ -10,8 +10,10 @@ class AccessControl
     {
         $session = new Session();
 
+        
+
         if (!$session->isSignedIn()) {
-            header("Location: /login.php"); // Redirect to login if not signed in
+            header("Location: /index.php"); // Redirect to index if not signed in
             exit;
         }
 
